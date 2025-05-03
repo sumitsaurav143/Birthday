@@ -1,38 +1,195 @@
+body, html, #root {
+  height: 100%;
+  margin: 0;
+  font-family: sans-serif;
+  background: linear-gradient(to top right, #ffecd2, #fcb69f);
+  overflow-x: hidden;
+}
+
 .App {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 30px 40px;
+  border-radius: 15px;
   text-align: center;
+  color: #333;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  backdrop-filter: blur(15px);
+  z-index: 2;
+  margin: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.time-box {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.time-box span:first-child {
+  font-size: 2em;
+  font-weight: bold;
 }
 
-@keyframes App-logo-spin {
+.clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.clickable:hover {
+  transform: scale(1.05);
+}
+
+.road-container {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+.road {
+  position: absolute;
+  bottom: 0;
+  height: 60px;
+  background: #444;
+  width: 100%;
+  z-index: 0;
+  border-top: 6px dashed #fff;
+}
+
+
+.car {
+  width: 140px;
+  position: absolute;
+  bottom: 10px;
+  left: 0; /* Start at left */
+  z-index: 1;
+}
+
+.car-drive.moving {
+  animation: drive-right 6s linear forwards;
+}
+
+@keyframes drive-right {
   from {
-    transform: rotate(0deg);
+    left: 0;
   }
   to {
-    transform: rotate(360deg);
+    left: calc(100% - 120px); /* Stop near home */
   }
+}
+
+.home-right {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  width: 180px;
+}
+
+canvas#confetti-canvas {
+  position: fixed;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.balloons {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 4rem;
+  animation: float 3s ease-in-out;
+  z-index: 10;
+}
+
+
+@keyframes float {
+  0% { transform: translateX(-50%) translateY(0); opacity: 0.2; }
+  50% { transform: translateX(-50%) translateY(-100px); opacity: 1; }
+  100% { transform: translateX(-50%) translateY(-300px); opacity: 0; }
+}
+
+
+.celebration-card {
+  background: linear-gradient(145deg, #fff0f5, #ffe4e1);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(255, 192, 203, 0.6);
+  animation: fadeInCard 1s ease-in-out;
+  max-width: 500px;
+}
+
+.birthday-heading {
+  font-size: 2em;
+  color: #ff1493;
+  margin-bottom: 20px;
+  animation: popIn 0.8s ease-out;
+}
+
+.story-line {
+  font-size: 1.2em;
+  color: #555;
+  margin: 10px 0;
+  opacity: 0;
+  animation: fadeSlideIn 1s forwards;
+}
+
+.delay-1 { animation-delay: 0.5s; }
+.delay-2 { animation-delay: 1s; }
+.delay-3 { animation-delay: 1.5s; }
+.delay-4 { animation-delay: 2s; }
+
+@keyframes fadeInCard {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.cake {
+  width: 350px;
+  margin-top: 30px;
+}
+
+.glowing-cake {
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from { filter: drop-shadow(0 0 5px #ff69b4); }
+  to { filter: drop-shadow(0 0 20px #ff1493); }
+}
+
+.footer-message {
+  margin-top: 25px;
+  font-style: italic;
+  color: #d63384;
 }
