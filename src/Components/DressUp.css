@@ -1,0 +1,56 @@
+.dressup-container {
+    text-align: center;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .dresses {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .dress-option {
+    width: 150px;
+    max-width: 40vw;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .dress-option:hover {
+    transform: scale(1.1);
+  }
+  
+  .selected-dress-wrapper {
+    margin-top: 20px;
+  }
+  
+  .selected-dress {
+    width: 200px;
+    max-width: 70vw;
+    transition: opacity 0.5s ease;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 600px) {
+    .dressup-container {
+      padding: 10px;
+    }
+  
+    .dress-option {
+      width: 100px;
+      max-width: 80vw;
+    }
+  
+    .selected-dress {
+      width: 150px;
+      max-width: 90vw;
+    }
+  
+    .dresses {
+      gap: 15px;
+    }
+  }

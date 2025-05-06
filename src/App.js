@@ -2,12 +2,35 @@ import React, { useEffect, useRef, useState } from 'react';
 import confetti from 'canvas-confetti';
 import './App.css';
 import TypewriterText from './TypewriterText';
+import DressUp from './Components/DressUp';
+import Lottie from "lottie-react";
+import balloonAnimation from "./Components/baloons.json";
 
 function App() {
+  const birthdate = 'May 4';
   const [timeLeft, setTimeLeft] = useState({});
-  const [phase, setPhase] = useState('countdown'); // countdown | sit | driving | prompt | celebration
+  const [phase, setPhase] = useState('countdown'); // countdown | dressup | sit | driving | prompt | celebration
   const canvasRef = useRef(null);
   const [showCake, setShowCake] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
+
+
+  useEffect(() => {
+    if (phase === 'driving') {
+      setShowMessage(true);
+      const audio = document.getElementById("chalo-music");
+      if (audio) {
+        audio.play().catch((err) => {
+          console.log("Autoplay failed:", err);
+        });
+      }
+      const timer = setTimeout(() => {
+        setShowMessage(false);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+
+  }, [phase]);
 
   const birthdayMessage = `
   Aaj ka din sirf tumhara hai... tum ho meri duniya 💖
@@ -30,7 +53,7 @@ function App() {
 
       const now = new Date();
       const currentYear = now.getFullYear();
-      let birthday = new Date(`July 6, ${currentYear} 23:59:59`);
+      let birthday = new Date(`${birthdate}, ${currentYear} 11:36:00`);
 
 
       const diff = birthday - now;
@@ -38,7 +61,7 @@ function App() {
       console.log("diff", diff, now > birthday);
 
       if (now > birthday) {
-        setPhase('sit');
+        setPhase('dressup');
         clearInterval(timer);
       }
 
@@ -59,12 +82,26 @@ function App() {
     setTimeout(() => setPhase('prompt'), 5000); // slow drive, wait longer
   };
 
-  const openDoor = () => {
-    setPhase('celebration');
-    const canvas = canvasRef.current;
-    const myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
+  const startDriving = () => {
+    setPhase('ride');
+    setTimeout(() => startDrive(), 5000); // slow drive, wait longer
+  };
 
-    myConfetti({ particleCount: 300, spread: 180, origin: { y: 0.6 } });
+  const openDoor = () => {
+    setPhase('sinchain');
+
+    setTimeout(() => {
+      setPhase('baloon');
+      setTimeout(() => {
+        setPhase('celebration');
+        const canvas = canvasRef.current;
+        const myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
+
+        myConfetti({ particleCount: 300, spread: 180, origin: { y: 0.6 } });
+
+      }, 5000);
+
+    }, 3000);
 
   };
 
@@ -75,7 +112,7 @@ function App() {
       {phase === 'countdown' && (
         <div className="card">
           <h1>🎉 Surprise Countdown 🎉</h1>
-          <p>Wait till 7th July...</p>
+          <p>Wait till {birthdate}...</p>
           <div className="countdown">
             <div className="time-box"><span>{timeLeft.days || 0}</span><span>Days</span></div>
             <div className="time-box"><span>{timeLeft.hours || 0}</span><span>Hours</span></div>
@@ -85,14 +122,22 @@ function App() {
         </div>
       )}
 
-      {phase === 'sit' && (
-        <div className="card clickable" onClick={startDrive}>
-          <h2> Let's go for a drive! 🚗</h2>
-          <p>Click to begin the journey 🏡</p>
-        </div>
+      {phase === 'dressup' && (
+        <DressUp onDressSelected={() => setPhase('sit')} />
       )}
 
-      {(phase === 'driving') && (
+      {phase === 'sit' && (
+        <>
+          <h2>Will you drive or shall I? 🚗</h2>
+          <div className="card clickable" onClick={startDrive}>
+            <h2>You 🙋🏻‍♂️</h2>
+          </div>
+          <div className="card clickable" onClick={startDriving}>
+            <h2>Me 💁🏼‍♀️</h2>
+          </div>
+        </>
+      )}
+      {phase === 'driving' && (
         <div className="road-container">
           <div className="road" />
           <img
@@ -100,28 +145,59 @@ function App() {
             alt="Home"
             className="home-right"
           />
-          <img
-            src="https://png.pngtree.com/png-vector/20240624/ourmid/pngtree-range-rover-png-image_12839620.png"
-            alt="Car"
-            className="car car-drive moving"
-          />
+
+          <div className="car-wrapper moving">
+            {showMessage && (
+              <div className="speech-bubble">Chalo...</div>
+            )}
+            <img
+              src="https://png.pngtree.com/png-vector/20240624/ourmid/pngtree-range-rover-png-image_12839620.png"
+              alt="Car"
+              className="car"
+            />
+          </div>
+
+          <audio id="chalo-music" autoPlay>
+            <source src="chalo.mp3" type="audio/mpeg" />
+          </audio>
         </div>
       )}
 
-      {phase === 'prompt' && (
-        <div className="card clickable" onClick={openDoor}>
-          <h2>🚪 Shall we open the door madam?</h2>
-          <p>Click to open!</p>
-        </div>
+      {phase === 'ride' && (
+        <TypewriterText text="Bakolu, car chalane aata h tumko? Mujhe chalane do, tm araam kro 😂😘" lineDelay={1200} charDelay={40} />
       )}
+
+      {phase === 'prompt' && (
+        <>
+          <h2>🚪 Pahunch gae ghar, gate kholu baby?</h2>
+          <div className="card clickable" onClick={openDoor}>
+            <p>Haa! 🥳</p>
+          </div>
+        </>
+      )}
+
+      {phase === 'sinchain' && (
+        <>
+          <img src={process.env.PUBLIC_URL + '/sin.gif'}></img>
+        </>
+      )}
+
+      {phase === 'baloon' && (
+        <>
+          <div style={{ width: 300, height: 500 }}>
+            <Lottie animationData={balloonAnimation} loop={false} />
+          </div>
+        </>
+      )}
+
 
 
       {phase === 'celebration' && (
         <div className="card celebration-card">
           <h2 className="birthday-heading">🎉 Happy 27th Birthday, My Love! 🎂</h2>
-          <p>{showCake == true}</p>
+          <p>{showCake === true}</p>
           {!showCake ?
-            <TypewriterText text={birthdayMessage} lineDelay={1200} charDelay={40} />
+            <TypewriterText text={birthdayMessage} lineDelay={1200} charDelay={100} />
             :
             <img
               src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/9193d483500913.5d3ecfc94f929.gif"
