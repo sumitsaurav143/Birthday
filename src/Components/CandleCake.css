@@ -252,3 +252,12 @@
 .drip3 {
     box-shadow: inset 0 1px 1px rgba(255, 240, 230, 0.5);
 }
+
+.candleBlowMsg{
+    display: flex;
+    margin-top: 400px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 30px ;
+}

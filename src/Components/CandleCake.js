@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './CandleCake.css';
 
-const CandleCake = ({isBlown, setIsBlowing}) => {
+const CandleCake = ({ isBlown, setIsBlowing }) => {
   const cakeRef = useRef(null);
 
   useEffect(() => {
@@ -9,23 +9,23 @@ const CandleCake = ({isBlown, setIsBlowing}) => {
     let analyser;
     let microphone;
     let intervalId;
-  
+
     function isBlowing() {
       const bufferLength = analyser.frequencyBinCount;
       const dataArray = new Uint8Array(bufferLength);
       analyser.getByteFrequencyData(dataArray);
-  
+
       const average = dataArray.reduce((a, b) => a + b, 0) / bufferLength;
       return average > 40;
     }
-  
+
     function blowOutCandle() {
       if (!isBlown && isBlowing()) {
         setIsBlowing(true);
         clearInterval(intervalId); // 🛑 Stop checking once blown
       }
     }
-  
+
     if (navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({ audio: true })
         .then(stream => {
@@ -38,7 +38,7 @@ const CandleCake = ({isBlown, setIsBlowing}) => {
         })
         .catch(err => console.log("Microphone access denied:", err));
     }
-  
+
     return () => {
       if (audioContext) audioContext.close();
       if (intervalId) clearInterval(intervalId); // 🧹 Cleanup on unmount
@@ -59,6 +59,9 @@ const CandleCake = ({isBlown, setIsBlowing}) => {
         <div className={`candle center-candle ${isBlown ? 'out' : ''}`}>
           {!isBlown && <div className="flame"></div>}
         </div>
+      </div>
+      <div className="candleBlowMsg">
+        <h3>Candle blow kro baby,<br/> Its your birthday 😘🥳 </h3>
       </div>
     </div>
   );

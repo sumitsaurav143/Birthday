@@ -2,8 +2,16 @@ body, html, #root {
   height: 100%;
   margin: 0;
   font-family: sans-serif;
-  background: linear-gradient(to top right, #ffecd2, #fcb69f);
+  background: linear-gradient(270deg, #ffecd2, #fcb69f, #ff9a9e, #fad0c4);
+  background-size: 800% 800%;
+  animation: animatedGradient 15s ease infinite;
   overflow-x: hidden;
+}
+
+@keyframes animatedGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .App {
@@ -24,6 +32,10 @@ body, html, #root {
   backdrop-filter: blur(15px);
   z-index: 2;
   margin: 20px;
+  display: flex!important;
+  justify-content: center!important;
+  align-items: center!important;
+  flex-direction: column!important;
 }
 
 .countdown {
