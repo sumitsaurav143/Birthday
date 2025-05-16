@@ -182,3 +182,10 @@
   border-radius: 50%;
   pointer-events: none;
 }
+
+.carouselnext{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}

@@ -32,6 +32,7 @@ body, html, #root {
   backdrop-filter: blur(15px);
   z-index: 2;
   margin: 20px;
+  width: 300px;
   display: flex!important;
   justify-content: center!important;
   align-items: center!important;
@@ -368,4 +369,56 @@ canvas#confetti-canvas {
     padding: 0 10px;
   }
 
+}
+
+.password-prompt{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #fff0f5, #ffe4e1);
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 300px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.password-prompt p {
+  font-size: 12px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.password-prompt input {
+  width: 80%;
+  height: 40px;
+  border: 2px solid #ffb6c1;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  outline: none;
+  transition: 0.3s border-color ease;
+}
+
+.password-prompt input:focus {
+  border-color: #ff69b4;
+}
+
+.password-prompt button {
+  padding: 12px 20px;
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.password-prompt button:hover {
+  background-color: #ff1493;
+  transform: scale(1.05);
 }

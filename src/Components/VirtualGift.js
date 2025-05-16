@@ -12,15 +12,7 @@ const VirtualGift = ({ setForm }) => {
     const canvasRef = useRef(null);
 
     const photoUrls = [
-        process.env.PUBLIC_URL + '/dress1.jpg',
-        process.env.PUBLIC_URL + '/dress2.jpg',
-        process.env.PUBLIC_URL + '/dress3.jpg',
-        process.env.PUBLIC_URL + '/dress1.jpg',
-        process.env.PUBLIC_URL + '/dress2.jpg',
-        process.env.PUBLIC_URL + '/dress3.jpg',
-        process.env.PUBLIC_URL + '/dress1.jpg',
-        process.env.PUBLIC_URL + '/dress2.jpg',
-        process.env.PUBLIC_URL + '/dress3.jpg'
+        "https://giftbig.s3.amazonaws.com/microsite/product/EGVGBFLSCLPS001/d/small_image/109_spayapi.png?appId=974"
     ];
 
     const canvaConfetti = () => {
@@ -44,7 +36,7 @@ const VirtualGift = ({ setForm }) => {
             ) : (
                 <>
                     <div className="carousel-wrapper">
-                        <h2 className="carousel-heading">Yay! A gift coupan for your shopping!</h2>
+                        <h2 className="carousel-heading">Yay! A gift coupan for you!</h2>
                         <Swiper
                             modules={[Navigation]}
                             navigation={true}
@@ -59,7 +51,7 @@ const VirtualGift = ({ setForm }) => {
                             ))}
                         </Swiper>
                     </div>
-                    <button className="gift-button" onClick={() => {
+                    <button className="card clickable" onClick={() => {
                         setForm();
                     }
                     }>Next</button>

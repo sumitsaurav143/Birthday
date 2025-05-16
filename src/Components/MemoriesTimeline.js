@@ -95,14 +95,8 @@ const memories = [
         type: "image",
     },
     {
-        date: "Dec 14, 2021",
-        message: "Again i came back to kolkata to meet again. Went to Isckon temple for krishna ji blessings and had this moment captured while clicking picture as sath me hamare koi nhi tha hamara sath me pic click krne k liye 😂 🥰",
-        media: process.env.PUBLIC_URL + "/memories/iskon.MOV",
-        type: "video",
-    },
-    {
         date: "Mar 20, 2022",
-        message: "Tumne apna dance video share kiya tha and what i did with this 🤣😆",
+        message: "Tumne apna dance video share kiya tha and this is one of my faviourite video of your dance. 🤣😆",
         media: process.env.PUBLIC_URL + "/memories/bulludance.mp4",
         type: "video",
     },
@@ -123,6 +117,12 @@ const memories = [
         message: "Celebrated you birthday online. Kyuki aa nhi sakta tha 😅🎂",
         media: process.env.PUBLIC_URL + "/memories/cake.jpg",
         type: "image",
+    },
+    {
+        date: "March 13, 2023",
+        message: "I came to kolkata from hyderabad to meet you. Went to Isckon temple for krishna ji blessings and had this moment captured while clicking picture as sath me hamare koi nhi tha hamara sath me pic click krne k liye 😂 🥰",
+        media: process.env.PUBLIC_URL + "/memories/iskon.MOV",
+        type: "video",
     },
 ];
 
@@ -179,7 +179,8 @@ export default function MemoryTimeline({setGift}) {
                         </div>
                     ))}
                 </div>
-                <button className="timeline-button" onClick={handleMediaClick}>Next</button>
+                <div className="carouselnext">
+                <button className="card clickable" onClick={handleMediaClick}>Next</button></div>
             </div>
 
             {selectedMedia && (
